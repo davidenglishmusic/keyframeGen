@@ -1,12 +1,30 @@
 class KeyframeGen
+  BUFFER_ZONE = 3
+
   attr_accessor :number_of_keyframes_to_generate
-  attr_accessor :total_frame_of_clip
+  attr_accessor :total_frames_of_clip
   attr_accessor :proximity_minimum
 
   def initialize(number_of_keyframes_to_generate, total_frames_of_clip, proximity_minimum)
     @number_of_keyframes_to_generate = number_of_keyframes_to_generate
     @total_frames_of_clip = total_frames_of_clip
     @proximity_minimum = proximity_minimum
+  end
+
+  def possible_to_calculate?
+    if @total_frames_of_clip / @proximity_minimum <= @number_of_keyframes_to_generate
+      true
+    else
+      false
+    end
+  end
+
+  def easy_to_calculate?
+    if @number_of_keyframes_to_generate < (@total_frames_of_clip / @proximity_minimum) - BUFFER_ZONE
+      true
+    else
+      false
+    end
   end
 
   def generate_keyframes

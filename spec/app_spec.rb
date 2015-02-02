@@ -3,6 +3,9 @@ require_relative '../app'
 describe KeyframeGen do
   before :all do
     @test_object_001 = KeyframeGen.new(5, 100, 5)
+    @test_object_002 = KeyframeGen.new(7, 70, 10)
+    @test_object_003 = KeyframeGen.new(9, 70, 9)
+    @test_object_004 = KeyframeGen.new(2, 50, 3)
   end
 
   describe 'generate_frame' do
@@ -38,6 +41,24 @@ describe KeyframeGen do
     end
     it 'returns false if the keyframes is within an acceptable distance from other keyframes' do
       expect(@test_object_001.too_close?(50, [11, 46, 90])).to eq(true)
+    end
+  end
+
+  describe 'possible_to_calculate?' do
+    it 'returns true if it is possible to generate the number of keyframes within the specified clip length with the proximity requirement' do
+      expect(@test_object_002.possible_to_calculate?).to eq(true)
+    end
+    it 'returns true if it is possible to generate the number of keyframes within the specified clip length with the proximity requirement' do
+      expect(@test_object_003.possible_to_calculate?).to eq(true)
+    end
+  end
+
+  describe 'easy_to_calculate?' do
+    it 'returns true if the number of keyframes to generate is significantly lower than the the clip length divided by the proximity requirement' do
+      expect(@test_object_002.easy_to_calculate?).to eq(false)
+    end
+    it 'returns true if the number of keyframes to generate is significantly lower than the the clip length divided by the proximity requirement' do
+      expect(@test_object_004.easy_to_calculate?).to eq(true)
     end
   end
 end
