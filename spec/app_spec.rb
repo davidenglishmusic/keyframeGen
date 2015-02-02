@@ -10,7 +10,7 @@ describe KeyframeGen do
 
   describe 'generate_frame' do
     it 'returns a integer' do
-      expect(@test_object_001.generate_frame.class).to eq(Fixnum)
+      expect(@test_object_001.generate_frame([]).class).to eq(Fixnum)
     end
   end
 
